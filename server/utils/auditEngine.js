@@ -5,50 +5,80 @@ const auditEngine = (data) => {
     let totalYearlySavings = 0;
 
     const pricing = {
-        ChatGPT: {
-            Team: 30,
-            Plus: 20
+        chatgpt: {
+            team: 30,
+            plus: 20
+        },
+        claude: {
+            pro: 20,
+            team: 30
+        },
+
+        cursor: {
+            pro: 20,
+            business: 40
+        }
+    };
+
+    const rules = {
+        chatgpt: {
+            from: "team",
+            to: "plus",
+            maxSeats: 2
+        },
+        claude: {
+            from: "team",
+            to: "pro",
+            maxSeats: 3
+        },
+        cursor: {
+            from: "business",
+            to: "pro",
+            maxSeats: 2
         }
     };
 
     data.tools.forEach((tool) => {
 
         const seats = Number(tool.seats);
-
-        const toolName =
-            tool.toolName.toLowerCase();
-
-        const plan =
-            tool.plan.toLowerCase();
+        const toolName = tool.toolName.toLowerCase();
+        const plan = tool.plan.toLowerCase();
+        const rule = rules[toolName];
 
         if (
-            tool.toolName === "chatgpt" &&
-            tool.plan === "team" &&
-            seats <= 2
+            pricing[toolName][rule.to] &&
+            pricing[toolName][plan] &&
+            rule &&
+            plan === rule.from &&
+            seats <= rule.maxSeats
         ) {
 
-            const currentCost =
-                pricing.ChatGPT.Team * seats;
+            const currentCost = Number(tool.monthlySpend);
 
             const recommendedCost =
-                pricing.ChatGPT.Plus * seats;
+                pricing[toolName][rule.to] * seats;
 
-            const monthlySavings = currentCost - recommendedCost;
+            const monthlySavings =
+                currentCost - recommendedCost;
 
-            const yearlySavings = monthlySavings * 12;
+            const yearlySavings =
+                monthlySavings * 12;
 
-            totalMonthlySavings += monthlySavings;
-            totalYearlySavings += yearlySavings;
+            if (monthlySavings > 0) {
 
+                totalMonthlySavings += monthlySavings;
+                totalYearlySavings += yearlySavings;
 
-            recommendations.push({
-                tool: "ChatGPT",
-                currentPlan: "Team",
-                recommendedPlan: "Plus",
-                monthlySavings,
-                yearlySavings,
-                reason: "Small teams can save money using Plus instead of Team plan"
-            });
+                recommendations.push({
+                    tool: tool.toolName,
+                    currentPlan: tool.plan,
+                    recommendedPlan: rule.to,
+                    monthlySavings,
+                    yearlySavings,
+                    reason:
+                        `Small teams can save money by switching from ${tool.plan} to ${rule.to}`
+                });
+            }
         }
 
     });

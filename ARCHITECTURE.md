@@ -15,17 +15,6 @@ Node.js + Express backend handles:
 - Recommendation generation
 
 Flow:
+Frontend Form → Axios Request → Express Route → Controller → Audit Engine → JSON Response → Frontend UI
 
-Frontend Form
-↓
-Axios API Request
-↓
-Express Route
-↓
-Controller
-↓
-Audit Engine
-↓
-JSON Response
-↓
-Frontend UI
+The recommendation engine uses configurable pricing and rule objects instead of hardcoded conditions, making the system scalable for additional AI tools and optimization strategies.

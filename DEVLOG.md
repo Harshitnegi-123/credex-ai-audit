@@ -39,3 +39,24 @@ Completed:
 
 Key Learning:
 Moving from hardcoded logic to configuration-driven systems makes backend architecture significantly more scalable and maintainable.
+
+## Day 3
+
+Completed:
+- Integrated MongoDB Atlas using Mongoose
+- Added persistent audit storage
+- Created Audit schema and database models
+- Implemented UUID-based shareId generation
+- Built shared audit report API endpoint
+- Added dynamic public audit pages using React Router
+- Added shareable audit URLs in frontend
+- Improved backend recommendation flow architecture
+
+Challenges:
+- Mongoose schema validation errors
+- Nested object schema debugging
+- Model caching and type conflicts
+- React Router integration issues
+
+Key Learning:
+Persisting data transforms a temporary calculator into a reusable SaaS-style workflow. Proper schema structure and backend architecture become significantly more important once application state is stored permanently.

@@ -7,6 +7,7 @@ const PLANS = ["Plus", "Team", "Pro", "Business"];
 const Home = () => {
     const [auditResult, setAuditResult] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [shareUrl, setShareUrl] = useState("");
     const [formData, setFormData] = useState(() => {
         const saved = localStorage.getItem("auditForm");
         return saved ? JSON.parse(saved) : {
@@ -29,7 +30,11 @@ const Home = () => {
         try {
             const response = await axios.post("http://localhost:5000/api/audit", { tools: [formData] });
             setAuditResult(response.data);
-            console.log(response.data.shareId);
+
+            const generatedShareUrl =
+                `http://localhost:5173/audit/${response.data.shareId}`;
+
+            setShareUrl(generatedShareUrl);
         } catch (error) {
             console.error("Error:", error);
         } finally {
@@ -108,6 +113,37 @@ const Home = () => {
                         </div>
 
                         <div className="h-px bg-[#EDEBE6] my-7" />
+                        {
+                            shareUrl && (
+                                <div className="mb-6">
+
+                                    <p className="text-[11px] font-medium text-[#888] uppercase tracking-widest mb-2">
+                                        Share Report
+                                    </p>
+
+                                    <div className="flex gap-2">
+
+                                        <input
+                                            type="text"
+                                            value={shareUrl}
+                                            readOnly
+                                            className="flex-1 px-3 py-2 border border-[#E0DDDA] rounded-xl bg-[#FAFAF8] text-sm"
+                                        />
+
+                                        <a
+                                            href={shareUrl}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="px-4 py-2 bg-[#1A1A1A] text-white rounded-xl text-sm flex items-center justify-center"
+                                        >
+                                            Open
+                                        </a>
+
+                                    </div>
+
+                                </div>
+                            )
+                        }
                     </>
                 )}
 

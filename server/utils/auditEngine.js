@@ -13,48 +13,36 @@ const auditEngine = (data) => {
     let totalYearlySavings = 0;
 
     const downgradeRules = {
-        chatgpt: {
-            from: "team",
-            to: "plus",
-            maxSeats: 2
-        },
-        claude: {
-            from: "team",
-            to: "pro",
-            maxSeats: 3
-        },
-        cursor: {
-            from: "business",
-            to: "pro",
-            maxSeats: 2
-        }
+
+        chatgpt: { from: "team", to: "plus", maxSeats: 2 },
+        claude: { from: "team", to: "pro", maxSeats: 3 },
+        cursor: { from: "business", to: "pro", maxSeats: 2 },
+        github_copilot: { from: "enterprise", to: "business", maxSeats: 10 },
+        perplexity: { from: "business", to: "pro", maxSeats: 3 },
+        notion_ai: { from: "business", to: "plus", maxSeats: 3 },
+        grammarly: { from: "business", to: "premium", maxSeats: 2 },
+        midjourney: { from: "pro", to: "standard", maxSeats: 1 },
+        runway: { from: "pro", to: "standard", maxSeats: 1 }
     };
 
     const upgradeRules = {
-        chatgpt: {
-            from: "plus",
-            to: "team",
-            minSeats: 5
-        },
 
-        claude: {
-            from: "pro",
-            to: "team",
-            minSeats: 5
-        },
-
-        cursor: {
-            from: "pro",
-            to: "business",
-            minSeats: 6
-        }
+        chatgpt: { from: "plus", to: "team", minSeats: 5 },
+        claude: { from: "pro", to: "team", minSeats: 5 },
+        cursor: { from: "pro", to: "business", minSeats: 6 },
+        github_copilot: { from: "business", to: "enterprise", minSeats: 51 },
+        perplexity: { from: "pro", to: "business", minSeats: 5 },
+        notion_ai: { from: "plus", to: "business", minSeats: 5 },
+        grammarly: { from: "premium", to: "business", minSeats: 3 },
+        midjourney: { from: "standard", to: "pro", minSeats: 1 },
+        runway: { from: "standard", to: "pro", minSeats: 1 }
     };
 
     data.tools.forEach((tool) => {
 
         let recommendationMade = false;
         const seats = Number(tool.seats);
-        const toolName = tool.toolName.toLowerCase();
+        const toolName = tool.toolName.toLowerCase().replace(/\s+/g, "_");
         const plan = tool.plan.toLowerCase();
         const downgradeRule = downgradeRules[toolName];
 

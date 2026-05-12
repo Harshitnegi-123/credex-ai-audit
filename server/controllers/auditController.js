@@ -13,10 +13,10 @@ export const runAudit = async (req, res) => {
             `https://credex-ai-audit-ten.vercel.app/audit/${shareId}`;
         if (req.body.email) {
 
-            await sendAuditEmail(
+            sendAuditEmail(
                 req.body.email,
                 shareUrl
-            );
+            ).catch(err => console.log(err));
         }
 
 

@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 dotenv.config();
 
+console.log("API KEY:", process.env.RESEND_API_KEY);
+
 connectDB();
 
 const app =  express();

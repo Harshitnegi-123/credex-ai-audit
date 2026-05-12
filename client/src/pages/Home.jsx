@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { generateSummary } from "../../../server/utils/generateSummary";
 
 const TOOLS_CONFIG = {
     "ChatGPT": ["Plus", "Team", "Enterprise"],
@@ -14,6 +15,8 @@ const TOOLS_CONFIG = {
 };
 
 const EMPTY_FORM = { toolName: "", plan: "", monthlySpend: "", seats: "" };
+
+
 
 const Home = () => {
     const [auditResult, setAuditResult] = useState(null);
@@ -53,7 +56,15 @@ const Home = () => {
                 email,
                 tools: [formData],
             });
-            setAuditResult(res.data);
+            const summary = generateSummary(
+                [formData],
+                res.data.totalMonthlySavings,
+                res.data.totalYearlySavings,
+                res.data.recommendations
+            );
+
+            setAuditResult({ ...res.data, summary });
+            // setAuditResult(res.data);
             setShareUrl(
                 `https://credex-ai-audit-ten.vercel.app/audit/${res.data.shareId}`
             );
@@ -63,6 +74,8 @@ const Home = () => {
             setLoading(false);
         }
     };
+
+
 
     const hasRecs = auditResult?.recommendations?.some(r => r.type !== "optimized");
 
@@ -167,10 +180,7 @@ const Home = () => {
                                 </span>
                             </div>
                             <p className="text-sm text-[#555] leading-relaxed">
-                                {hasRecs
-                                    ? `Based on your ${submittedData?.toolName} usage on the ${submittedData?.plan} plan, switching to a lighter tier could save you $${auditResult.totalYearlySavings}/year. Unused seats are the most common source of AI overspend.`
-                                    : `Your current ${submittedData?.toolName} setup looks well-optimized. No changes recommended right now.`
-                                }
+                                {auditResult.summary}
                             </p>
                         </div>
 

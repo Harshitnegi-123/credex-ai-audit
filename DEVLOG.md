@@ -100,3 +100,7 @@ Challenges:
 
 Key Learning:
 Production deployment exposed issues that never appeared during local development, especially around environment variables, networking, and external service integration.
+
+---
+
+Email feature implemented with Resend. Currently sends to verified email only due to free tier domain restriction. Production mein custom domain add karke any email pe send kar sakte hain.

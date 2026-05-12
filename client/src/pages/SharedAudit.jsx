@@ -9,7 +9,7 @@ const SharedAudit = () => {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/audit/${shareId}`)
+        axios.get(`https://credex-ai-audit-jocx.onrender.com/api/audit/${shareId}`)
             .then(res => setData(res.data))
             .catch(() => setError(true))
             .finally(() => setLoading(false));

@@ -10,7 +10,7 @@ export const runAudit = async (req, res) => {
 
         const shareId = uuidv4();
         const shareUrl =
-            `http://localhost:5173/audit/${shareId}`;
+            `https://credex-ai-audit-ten.vercel.app/audit/${shareId}`;
         if (req.body.email) {
 
             await sendAuditEmail(

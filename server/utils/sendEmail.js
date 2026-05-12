@@ -5,8 +5,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export const sendAuditEmail = async (recipientEmail, shareUrl) => {
     try {
         await resend.emails.send({
-            from: "harshunegi14@gmail.com",
-            to: recipientEmail,
+            from: "AI Spend Audit <onboarding@resend.dev>",
+            to: "harshunegi14@gmail.com",
             subject: "Your AI Spend Audit Report",
             text: `Open your report: ${shareUrl}`
         });

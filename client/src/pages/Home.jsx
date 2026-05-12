@@ -24,6 +24,7 @@ const Home = () => {
     const [shareUrl, setShareUrl] = useState("");
     const [email, setEmail] = useState("");
     const [submittedData, setSubmittedData] = useState(null);
+    const [Result, setResult] = useState(null);
     const [formData, setFormData] = useState(() => {
         const saved = localStorage.getItem("auditForm");
         return saved ? JSON.parse(saved) : EMPTY_FORM;

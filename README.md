@@ -114,3 +114,7 @@ MONGO_URI=your_mongodb_connection_string
 - React state management
 - Fullstack API integration
 - Public report sharing workflows
+
+---
+
+Anthropic API integration structure has been prepared, but production API usage was deferred due to paid API credit requirements during development.

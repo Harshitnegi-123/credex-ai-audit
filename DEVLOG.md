@@ -60,3 +60,43 @@ Challenges:
 
 Key Learning:
 Persisting data transforms a temporary calculator into a reusable SaaS-style workflow. Proper schema structure and backend architecture become significantly more important once application state is stored permanently.
+
+## Day 4
+
+Completed:
+- Integrated MongoDB Atlas database
+- Added persistent audit report storage
+- Implemented shareable audit links using UUIDs
+- Built public shared audit page
+- Added Nodemailer email integration
+- Added production environment variables
+- Improved recommendation rendering logic
+
+Challenges:
+- MongoDB schema validation issues
+- Mongoose casting errors
+- SMTP authentication debugging
+- Async request handling problems
+
+Key Learning:
+Persisting generated reports introduced backend architecture considerations around schema design, route handling, and asynchronous workflows.
+
+## Day 5
+
+Completed:
+- Deployed backend on Render
+- Deployed frontend on Vercel
+- Configured production API communication
+- Fixed deployment-related bugs
+- Added production-ready share URLs
+- Improved loading states and UI feedback
+- Added additional documentation files
+
+Challenges:
+- Monorepo deployment configuration
+- Production environment debugging
+- Handling frontend-backend URL separation
+- Email delivery limitations on free hosting tiers
+
+Key Learning:
+Production deployment exposed issues that never appeared during local development, especially around environment variables, networking, and external service integration.

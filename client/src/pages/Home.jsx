@@ -62,7 +62,8 @@ const Home = () => {
                 res.data.totalYearlySavings,
                 res.data.recommendations
             );
-
+            localStorage.removeItem("auditForm");
+            setResult(res.data);
             setAuditResult({ ...res.data, summary });
             // setAuditResult(res.data);
             setShareUrl(
